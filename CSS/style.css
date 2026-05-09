@@ -1,7 +1,7 @@
 /* ========== ROOT VARIABEL (WARNA DASAR TETAP) ========== */
 :root {
     --blue-ut: #0A4595;
-    --blue-mid: rgb(10, 68, 149);
+    --blue-mid: rgba(10, 68, 149, 0.84);
     --white-bg: #FFF9F9;
     --glass: rgba(255, 255, 255, 0.25);
     --glass-border: rgba(255, 255, 255, 0.4);
@@ -70,13 +70,13 @@ body {
 
 #parentDIV h1 {
     font-size: 4rem;
-    color: var(--blue-mid);
+    color: whitesmoke;
     text-shadow: var(--text-shadow);
     letter-spacing: -0.5px;
 }
 
 #parentDIV b {
-    color: var(--blue-mid)(255, 255, 255, 0.9);
+    color: whitesmoke;
     font-size: 2rem;
 }
 
@@ -545,52 +545,285 @@ tr:hover {
 /* ========== RESPONSIVE (Mobile Friendly) ========== */
 @media (max-width: 768px) {
     body {
-        padding: 1rem;
+        padding: 1rem 0.5rem;
     }
-    .gradient-box {
-        padding: 1.5rem;
-    }
-    .menu-grid {
-        grid-template-columns: 1fr 1fr;
+
+    .main-container {
         gap: 1rem;
     }
+
+    .gradient-box {
+        padding: 1.5rem 1rem;
+        max-width: 95%;
+    }
+
+    #parentDIV {
+        padding: 1rem 2rem;
+    }
+
+    #parentDIV h1 {
+        font-size: 2.5rem;
+    }
+
+    #parentDIV b {
+        font-size: 1.5rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+    }
+
     .menu-item {
         padding: 1.2rem 0.5rem;
     }
+
     .menu-item i {
         font-size: 2rem;
     }
+
+    .menu-item span {
+        font-size: 1rem;
+    }
+
     .table-container {
         width: 100%;
         padding: 0.5rem;
+        margin: 1rem auto;
     }
+
     th, td {
         padding: 0.6rem 0.3rem;
         font-size: 0.75rem;
     }
+
+    .cover-wrapper img {
+        width: 40px;
+    }
+
     .search-section {
         flex-direction: column;
+        padding: 1rem;
     }
+
     .btn-search {
-        padding: 0.7rem;
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
     }
+
     .info-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.8rem;
     }
+
+    .info-card {
+        padding: 0.8rem;
+    }
+
+    .timeline-container {
+        padding: 1.2rem;
+    }
+
+    .stepper-vertical {
+        padding-left: 1.2rem;
+    }
+
     .step-desc {
         font-size: 0.8rem;
+    }
+
+    .status-badge {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
     }
 }
 
 @media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    .main-container {
+        gap: 0.8rem;
+    }
+
+    .glass-card, .gradient-box, .glass-box {
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    #parentDIV {
+        padding: 0.5rem 1rem;
+    }
+
+    #parentDIV h1 {
+        font-size: 2rem;
+        letter-spacing: -0.3px;
+    }
+
+    #parentDIV b {
+        font-size: 1.2rem;
+    }
+
+    .logo-ut {
+        max-width: 80px;
+    }
+
+    #loginForm input {
+        padding: 0.8rem 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    #loginForm button[type="submit"] {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+
     .menu-grid {
         grid-template-columns: 1fr;
+        gap: 0.8rem;
     }
+
+    .menu-item {
+        padding: 1rem 0.5rem;
+    }
+
+    .menu-item i {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .menu-item span {
+        font-size: 0.9rem;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.8rem;
+    }
+
+    .btn-back {
+        align-self: flex-start;
+    }
+
+    .table-wrapper {
+        border-radius: 1rem;
+    }
+
+    th {
+        font-size: 0.7rem;
+        padding: 0.8rem 0.4rem;
+    }
+
+    td {
+        padding: 0.7rem 0.3rem;
+        font-size: 0.7rem;
+    }
+
+    .cover-wrapper img {
+        width: 35px;
+    }
+
+    .kode {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.4rem;
+    }
+
+    .badge-jenis {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.5rem;
+    }
+
+    .stok-val {
+        font-size: 1rem;
+    }
+
+    .tracking-container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .search-section {
+        gap: 0.8rem;
+        padding: 0.8rem;
+    }
+
+    .input-group input {
+        padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+        font-size: 0.9rem;
+    }
+
+    .input-group i {
+        left: 0.8rem;
+        font-size: 1rem;
+    }
+
+    .btn-search {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+    }
+
+    .info-card {
+        padding: 0.6rem;
+    }
+
+    .info-card small {
+        font-size: 0.85rem;
+    }
+
+    .info-card p {
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+    }
+
+    .timeline-container {
+        padding: 1rem;
+    }
+
+    .stepper-vertical {
+        padding-left: 1rem;
+    }
+
+    .step-item {
+        padding-bottom: 1rem;
+    }
+
+    .step-desc {
+        font-size: 0.75rem;
+    }
+
+    .step-time {
+        font-size: 0.65rem;
+    }
+
+    .status-badge {
+        font-size: 0.85rem;
+        padding: 0.25rem 0.5rem;
+    }
+
+    .error-msg {
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
     .footer-form {
         flex-direction: column;
         align-items: center;
+        gap: 0.6rem;
     }
-    #parentDIV h1 {
-        font-size: 2rem;
+
+    .cancelbtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .psw a {
+        font-size: 0.9rem;
     }
 }
