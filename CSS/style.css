@@ -65,18 +65,18 @@ body {
 }
 
 #parentDIV .greeting-message {
-    color: var(--blue-mid);
+    color: whitesmoke;
 }
 
 #parentDIV h1 {
     font-size: 4rem;
-    color: var(--blue-mid);
+    color: whitesmoke;
     text-shadow: var(--text-shadow);
     letter-spacing: -0.5px;
 }
 
 #parentDIV b {
-    color: var(--blue-mid)(255, 255, 255, 0.9);
+    color: whitesmoke;
     font-size: 2rem;
 }
 
