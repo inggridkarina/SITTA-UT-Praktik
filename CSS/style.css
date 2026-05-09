@@ -65,7 +65,7 @@ body {
 }
 
 #parentDIV .greeting-message {
-    color: var(--blue-mid);
+    color: whitesmoke;
 }
 
 #parentDIV h1 {
