@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Pengiriman - SITTA UT</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body class="dashboard-body">
+
+  <div class="glass-box tracking-container fade-in">
+    <div class="table-header">
+      <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali</a>
+      <h2><i class="fas fa-truck-fast"></i> Lacak Pengiriman</h2>
+    </div>
+
+    <!-- SEARCH BOX -->
+    <div class="search-section">
+      <div class="input-group">
+        <i class="fas fa-search"></i>
+        <input type="text" id="doNumber" placeholder="Masukkan Nomor DO / Resi">
+      </div>
+      <button onclick="cari()" class="btn-search">Cari Paket</button>
+    </div>
+
+    <div id="result">
+      <!-- Hasil pencarian akan muncul di sini -->
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    function cari() {
+      const doNumber = document.getElementById("doNumber").value.trim();
+      const result = document.getElementById("result");
+
+      if (doNumber === "") {
+        alert("Nomor DO tidak boleh kosong!");
+        return;
+      }
+
+      const data = dataTracking[doNumber];
+
+      if (!data) {
+        result.innerHTML = `
+          <div class="error-msg fade-in">
+            <i class="fas fa-exclamation-circle"></i>
+            <p>Data DO <b>${doNumber}</b> tidak ditemukan</p>
+          </div>`;
+        return;
+      }
+
+      // Render Riwayat Perjalanan (Titik-titik Progress)
+      let perjalananHTML = "";
+      data.perjalanan.forEach((item, index) => {
+        // Titik pertama dianggap posisi terbaru (Active)
+        const activeClass = index === 0 ? "step-active" : "";
+        perjalananHTML += `
+          <div class="step-item ${activeClass}">
+            <div class="step-dot"></div>
+            <div class="step-content">
+              <span class="step-time">${item.waktu}</span>
+              <p class="step-desc">${item.keterangan}</p>
+            </div>
+          </div>
+        `;
+      });
+
+      result.innerHTML = `
+        <div class="tracking-content fade-in">
+          <!-- Info Paket Card -->
+          <div class="info-grid">
+            <div class="info-card">
+              <small>Penerima</small>
+              <p>${data.nama}</p>
+            </div>
+            <div class="info-card">
+              <small>Status</small>
+              <p class="status-badge">${data.status}</p>
+            </div>
+            <div class="info-card">
+              <small>Ekspedisi</small>
+              <p>${data.ekspedisi}</p>
+            </div>
+            <div class="info-card">
+              <small>Paket</small>
+              <p>${data.paket}</p>
+            </div>
+          </div>
+
+          <!-- Timeline Vertical -->
+          <div class="timeline-container">
+            <h3><i class="fas fa-map-marker-alt"></i> Riwayat Perjalanan</h3>
+            <div class="stepper-vertical">
+              ${perjalananHTML}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

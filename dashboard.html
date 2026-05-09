@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Dashboard SITTA</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="main-container">
+  <div class="glass-card header-card">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+      <img src="Assets/logo-ut.png" alt="Logo UT" style="height: 60px;">
+      <h2>SITTA UT</h2>
+    </div>
+    <p id="greetingDashboard" class="greeting-message" style="font-size: 1.4rem;"></p>
+    <p class="subtitle">Kelola dan lacak bahan ajar Anda</p>
+  </div>
+
+  <div class="menu-grid">
+    <a href="stok.html" class="menu-item glass-card"><i class="fas fa-boxes"></i><span>Stok Bahan Ajar</span></a>
+    <a href="tracking.html" class="menu-item glass-card"><i class="fas fa-truck"></i><span>Lacak Pengiriman</span></a>
+    <a class="menu-item glass-card"><i class="fas fa-user-graduate"></i><span>Profil Saya</span></a>
+    <a class="menu-item glass-card"><i class="fas fa-boxes"></i><span>Histori Transaksi</span></a>
+    <button id="logoutBtn" class="menu-item glass-card" style="background: rgba(255,80,80,0.2);"><i class="fas fa-sign-out-alt"></i><span>Logout</span></button>
+  </div>
+
+  <div class="glass-card" style="text-align: center;">
+    <p style="color: white;">📘 Sistem Informasi Bahan Ajar Terpadu</p>
+  </div>
+</div>
+
+<script>
+  const userEmail = localStorage.getItem('sitta_user_email');
+  if (!userEmail) window.location.href = "index.html";
+
+  const greetingEl = document.getElementById('greetingDashboard');
+  if (greetingEl) {
+    const hour = new Date().getHours();
+    let text = hour<12 ? 'Selamat Pagi' : (hour<15 ? 'Selamat Siang' : (hour<18 ? 'Selamat Sore' : 'Selamat Malam'));
+    let name = userEmail.split('@')[0];
+    greetingEl.innerText = `${text}, ${name}!`;
+  }
+
+  document.getElementById('logoutBtn')?.addEventListener('click', () => {
+    localStorage.removeItem('sitta_user_email');
+    localStorage.removeItem('sitta_remembered_email');
+    alert('Logout berhasil');
+    window.location.href = "index.html";
+  });
+</script>
+</body>
+</html>

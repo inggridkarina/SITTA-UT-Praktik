@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Login SITTA - Sistem Informasi Bahan Ajar</title>
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<div id="parentDIV">
+  <h1>SITTA UT</h1>
+  <b id="greeting" class="greeting-message"></b>
+  <br>
+  <b>Selamat Datang!
+  <br>
+     Lacak bahan ajarmu di SITTA</b>
+  <p>uji coba email:admin@ut.ac.id password: admin123</p>
+</div>
+
+<div class="gradient-box">
+  <div id="myDIV">
+    <div class="imgcontainer">
+      <img src="Assets/logo-ut.png" alt="Logo Universitas Terbuka" class="logo-ut">
+    </div>
+
+    <form id="loginForm" action="#" method="post" novalidate>
+      <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="email" id="email" name="email" placeholder="Masukkan Email" required autocomplete="email">
+
+        <label for="password"><b>Password</b></label>
+        <input type="password" id="password" name="password" placeholder="Masukkan Password" required autocomplete="current-password">
+
+        <button type="submit" id="loginBtn">Login</button>
+
+        <div class="remember-me">
+          <input type="checkbox" id="remember" name="remember">
+          <label for="remember">Remember me</label>
+        </div>
+      </div>
+
+      <div class="footer-form">
+        <button type="button" class="cancelbtn" id="cancelBtn">Cancel</button>
+        <span class="psw"><a href="#">Forgot password?</a></span>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+  (function() {
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const rememberCheck = document.getElementById('remember');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const greetingEl = document.getElementById('greeting');
+
+    if (greetingEl) {
+      const currentHour = new Date().getHours();
+      let greetingText = '';
+      if (currentHour >= 5 && currentHour < 12) greetingText = 'Selamat Pagi';
+      else if (currentHour >= 12 && currentHour < 15) greetingText = 'Selamat Siang';
+      else if (currentHour >= 15 && currentHour < 18) greetingText = 'Selamat Sore';
+      else greetingText = 'Selamat Malam';
+      greetingEl.innerText = greetingText + ', Mahasiswa UT';
+    }
+
+    function loadRememberedEmail() {
+      const savedEmail = localStorage.getItem('sitta_remembered_email');
+      if (savedEmail) {
+        emailInput.value = savedEmail;
+        rememberCheck.checked = true;
+      }
+    }
+
+    function handleRememberOnSuccess(email) {
+      if (rememberCheck.checked) {
+        localStorage.setItem('sitta_remembered_email', email);
+      } else {
+        localStorage.removeItem('sitta_remembered_email');
+      }
+    }
+
+    const performLogin = (event) => {
+      event.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        alert('Email dan Password wajib diisi!');
+        return;
+      }
+
+      if (typeof dataPengguna === 'undefined') {
+        alert('Gagal memuat data pengguna. Hubungi administrator.');
+        return;
+      }
+
+      const user = dataPengguna.find(u => u.email === email && u.password === password);
+
+      if (user) {
+        // **PERBAIKAN: simpan email untuk session dashboard**
+        localStorage.setItem('sitta_user_email', email);
+        handleRememberOnSuccess(email);
+        alert('Login berhasil! Selamat datang, ' + (user.email || 'pengguna') + '.');
+        window.location.href = "dashboard.html";
+      } else {
+        alert('Email atau password salah!');
+        passwordInput.value = '';
+        passwordInput.focus();
+      }
+    };
+
+    const resetForm = () => {
+      emailInput.value = '';
+      passwordInput.value = '';
+      rememberCheck.checked = false;
+      localStorage.removeItem('sitta_remembered_email');
+      emailInput.focus();
+    };
+
+    if (loginForm) loginForm.addEventListener('submit', performLogin);
+    if (cancelBtn) cancelBtn.addEventListener('click', resetForm);
+    loadRememberedEmail();
+  })();
+</script>
+</body>
+</html>

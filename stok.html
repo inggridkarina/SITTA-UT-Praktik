@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stok Bahan Ajar - SITTA UT</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+  <div class="glass-box table-container fade-in">
+    <div class="table-header">
+      <a href="dashboard.html" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali</a>
+      <h2><i class="fas fa-boxes"></i> Data Stok Bahan Ajar</h2>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Bahan Ajar</th>
+            <th>Nama Modul</th>
+            <th>Jenis</th>
+            <th>Edisi</th>
+            <th>Status Stok</th>
+          </tr>
+        </thead>
+        <tbody id="tabelStok">
+          <!-- Data akan masuk di sini via JS -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script>
+    const tabel = document.getElementById("tabelStok");
+
+    dataBahanAjar.forEach(item => {
+      // Logika warna stok (Kreativitas tambahan)
+      const statusClass = item.stok < 10 ? 'stok-low' : 'stok-safe';
+      
+      tabel.innerHTML += `
+        <tr>
+          <td class="col-cover">
+            <div class="cover-wrapper">
+               <img src="${item.cover}" alt="${item.namaBarang}">
+               <span class="kode">${item.kodeBarang}</span>
+            </div>
+          </td>
+          <td class="text-left"><strong>${item.namaBarang}</strong></td>
+          <td><span class="badge-jenis">${item.jenisBarang}</span></td>
+          <td>Ed. ${item.edisi}</td>
+          <td>
+            <div class="stok-indicator ${statusClass}">
+               <span class="stok-val">${item.stok}</span>
+               <small>${item.stok < 10 ? 'Perlu Restok' : 'Tersedia'}</small>
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+  </script>
+</body>
+</html>
